@@ -54,10 +54,10 @@ public class UserLoginController {
     @PostMapping("/token")
     public Map<String, Object> generateToken(@RequestBody AuthenticationReq authenticationReq)
             throws BadRequestException {
-        System.out.println("user is ");
+        
         List<Map<String, Object>> username = new ArrayList<>();
         username = loginRepository.findByUserName(authenticationReq.getUsername());
-        System.out.println(username);
+       
         if (username.isEmpty()) {
             throw new BadRequestException("Invalid username or password");
         }
