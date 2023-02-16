@@ -34,7 +34,6 @@ public class CustomUserDetailsService implements UserDetailsService{
         List<Map<String, Object>> userlist =new ArrayList<>();
             try {
                 userlist=userLoginRepository.findByUserName(username);
-                System.out.println(userlist);
             } catch (BadRequestException e) {
                 e.printStackTrace();
             }

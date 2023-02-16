@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 
 import com.hms.hospitalmanagementsystem.Exception.BadRequestException;
 import com.hms.hospitalmanagementsystem.Repository.UserLoginRepository;
+import com.hms.hospitalmanagementsystem.Response.SmsResponse;
 
 import lombok.AllArgsConstructor;
 
@@ -83,6 +84,33 @@ public class UserLoginRepositoryImpl implements UserLoginRepository{
      }
        
      return null;
+    }
+
+    @Override
+    public List<Map<String, Object>> getByEmailOrEmail(String email, String mobileNo) {
+
+        String query="SELECT ul.`username` AS userName,ul.`mobileNo` AS mobileNo FROM `user_login` ul WHERE ul.`username`=? OR mobileNo= ?";
+      
+        return jdbcTemplate.queryForList(query, email,mobileNo);
+    }
+
+    @Override
+    public Map<String, Object> getSmsProperties(String templeteId) {
+       
+        return jdbcTemplate.queryForMap("SELECT base_url,ukey,credittype,language,senderid,templateid,filetype,isactive FROM sms_properties where isactive=true and templateid=?", templeteId);
+    }
+
+    @Override
+    public void saveSmsLog(SmsResponse body, String templateId, String emailId) {
+        
+        
+        String query = "INSERT INTO `sms_log`(`http_response_code`,`message`,`phone`,`response_code`,`status`,`delivery_time`,`sms_properties_id`,`created_by`,`last_modified_by`)\r\n"
+                + "VALUES(?,?,?,?,?,?,?,?,?)";
+
+        Object args[] = { body.getHttpresponseCode(), body.getMessage(), body.getPhone(), body.getResponseCode(),
+                body.getStatus(), body.getDeliveryTime(), templateId, emailId, emailId };
+        jdbcTemplate.update(query, args);
+        
     }
     
 }
