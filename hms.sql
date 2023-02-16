@@ -164,3 +164,56 @@ insert  into `user_roles`(`id`,`authority`,`username`) values
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+
+
+
+
+
+
+
+CREATE TABLE `sms_log` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `http_response_code` varchar(100) NOT NULL,
+  `message` text,
+  `phone` varchar(100) DEFAULT NULL,
+  `response_code` varchar(100) DEFAULT NULL,
+  `status` varchar(100) DEFAULT NULL,
+  `delivery_time` varchar(100) DEFAULT NULL,
+  `sms_properties_id` int DEFAULT NULL,
+  `created_by` varchar(150) DEFAULT NULL,
+  `created_date` datetime DEFAULT CURRENT_TIMESTAMP,
+  `last_modified_by` varchar(150) DEFAULT NULL,
+  `last_modified_date` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) 
+
+
+insert  into `sms_log`(`id`,`http_response_code`,`message`,`phone`,`response_code`,`status`,`delivery_time`,`sms_properties_id`,`created_by`,`created_date`,`last_modified_by`,`last_modified_date`) values 
+(4,'200','Success','7007340557','17','INPROGRESS',NULL,2,'pravesh','2023-02-16 12:49:24','pravesh','2023-02-16 12:49:24');
+
+
+
+
+CREATE TABLE `sms_properties` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `base_url` text,
+  `ukey` varchar(255) NOT NULL,
+  `credittype` varchar(100) NOT NULL,
+  `language` varchar(50) NOT NULL,
+  `senderid` varchar(25) NOT NULL,
+  `templateid` varchar(20) NOT NULL,
+  `filetype` varchar(100) NOT NULL,
+  `isactive` bit(1) NOT NULL,
+  `created_date` datetime DEFAULT CURRENT_TIMESTAMP,
+  `last_modified_date` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `created_by` varchar(150) DEFAULT NULL,
+  `last_modified_by` varchar(150) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+/*Data for the table `sms_properties` */
+
+insert  into `sms_properties`(`id`,`base_url`,`ukey`,`credittype`,`language`,`senderid`,`templateid`,`filetype`,`isactive`,`created_date`,`last_modified_date`,`created_by`,`last_modified_by`) values 
+(1,'http://125.16.147.178/VoicenSMS/webresources/CreateSMSCampaignGet?','W5VGUYO5ruBartWeOKJoDDqDk','2','0','GOMRKT','0','2','','2023-02-15 13:18:49','2023-02-15 13:19:09','pravesh','pravesh'),
+(2,'https://test.payumoney.com/Asynctaskprocessor/int/sendSms','vpp_otp_login','otp','0','PAYUMN','2','0','','2023-02-16 12:44:37','2023-02-16 12:44:40',NULL,NULL);
